@@ -1,2 +1,2 @@
 a="hellow"
-print(a+" world" )
+print(a+"\nworld" )
