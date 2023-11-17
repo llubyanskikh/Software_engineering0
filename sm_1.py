@@ -21,7 +21,7 @@ def find_most_common_word(text):
 
 
 def main():
-    file_path = 'input.txt'  # Укажите имя вашего файла
+    file_path = 'input.txt' 
     article_content = read_file(file_path)
 
     word_count = count_words(article_content)
