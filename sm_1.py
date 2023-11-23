@@ -1,4 +1,3 @@
-# -*- coding: windows-1251 -*-
 import time
 
 def timing_decorator(func):
@@ -7,7 +6,7 @@ def timing_decorator(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"\nВремя выполнения функции {func.__name__}: {execution_time} секунд")
+        print(f"\nГ‚Г°ГҐГ¬Гї ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГґГіГ­ГЄГ¶ГЁГЁ {func.__name__}: {execution_time} Г±ГҐГЄГіГ­Г¤")
         return result
     return wrapper
 
