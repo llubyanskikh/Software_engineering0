@@ -251,60 +251,84 @@ add_two_numbers()
 ### Создайте собственный декоратор, который будет использоваться для двух любых вами придуманных функций. Декораторы, которые использовались ранее в работе нельзя воссоздавать. Результатом выполнения задачи будет: класс декоратора, две как-то связанными с ним функциями, скриншот консоли с выполненной программой и подробные комментарии, которые будут описывать работу вашего кода.
 
 ```python
-class Violin: # создаём класс Скрипка
-    def __init__(self, size, model): #передаём объекты класса размер, модель, цвет, страна. Self - специальный параметр, который передается первым аргументом в метод класса и представляет собой ссылку на экземпляр класса. Метод init отвечает за инициализацию экземпляров класса,
-        self.__size = size #защищённый атрибут
-        self._model = model#приватный атрибут
+import time
 
+# Создаем класс декоратора
+class CallInfoDecorator:
+    def __init__(self, func):
+        self.func = func
 
-    def buy(self):#определяем функцию buy
-        print(f"Buy a {self.__size} {self._model} violin")
+    def __call__(self, *args, **kwargs):
+        # Запоминаем текущее время
+        start_time = time.time()
 
-my_violin = Violin("4/4", "Yamaha V3-SKA")#передаём значения атрибутов
-print(my_violin._model)
-my_violin.buy()
+        # Вызываем функцию и сохраняем ее результат
+        result = self.func(*args, **kwargs)
+
+        # Вычисляем время выполнения функции
+        execution_time = time.time() - start_time
+
+        # Выводим информацию о вызове функции
+        print(f"Функция {self.func.__name__} была вызвана с аргументами {args} и ключевыми аргументами {kwargs}")
+        print(f"Время выполнения функции: {execution_time} секунд\n")
+
+        # Возвращаем результат функции
+        return result
+
+# Определяем две функции, к которым будем применять декоратор
+@CallInfoDecorator
+def multiply(x, y):
+    return x * y
+
+@CallInfoDecorator
+def greet(name):
+    return f"Привет, {name}!"
+
+# Тестируем работу декоратора
+result = multiply(5, 7)
+print(result)  # Выведет: 35
+
+result = greet("Вася")
+print(result)  # Выведет: Привет, Вася!
 ```
 ## Результат
 
-![image](https://github.com/llubyanskikh/Software_engineering0/assets/147454826/6a7d335c-555c-49b7-a140-ca88164d33e2)
-
+![image](https://github.com/llubyanskikh/Software_engineering0/assets/147454826/8194a77c-17d2-4276-925c-dd4e5ea78b80)
 
 ## Выводы.
-### Инкапсуляция - это механизм,позволяющий скрывать детали реализации класса и предоставлять только необходимый интерфейс для взаимодействия с объектами. Она достигается с помощью объявления атрибутов и методов класса как публичные, запрещённые или приватные. 
+### Таким образом, декоратор CallInfoDecorator успешно применяется к функциям multiply и greet, и выводит информацию о вызове и времени выполнения каждой функции.
 
 ## Самостоятельная работа №5
-### Самостоятельно реализуйте полиморфизм. Он должен отличаться, от того, что указан в теоретическом материале (методичке) и лабораторных заданиях. Результатом выполнения задания будет листинг кода и получившийся вывод консоли
+### Создайте собственное исключение, которое будет использоваться в двух любых фрагментах кода. Исключения, которые использовались ранее в работе нельзя воссоздавать. Результатом выполнения задачи будет: класс исключения, код к котором в двух местах используется это исключение, скриншот консоли с выполненной программой и подробные комментарии, которые будут описывать работу вашего кода.
 
 ```python
-class MusicalInstrument:
-    def cost(self):
-        pass
+class CustomException(Exception):
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
 
-class Violin(MusicalInstrument):
-    def __init__(self, quantity, price):
-        self.quantity = quantity
-        self.price = price
 
-    def cost(self):
-        return self.quantity * self.price
+def example_function(number):
+    if number < 0:
+        raise CustomException("Неверный ввод. Число должно быть положительным.")
+    else:
+        return number ** 2
 
-class Piano(MusicalInstrument):
-    def __init__(self, quantity, price, delivery):
-        self.quantity = quantity
-        self.price = price
-        self.delivery = delivery
 
-    def cost(self):
-        return self.quantity * self.price + self.delivery
-instruments = [Violin(4, 25600), Piano(1, 48900, 3300)]# создаём массив
-for instrument in instruments:# с помощью цикла for выводим их площади по очереди
-    print(instrument.cost())
+try:
+    input_number = int(input("Введите положительное число: "))
+    result = example_function(input_number)
+    print("Результат:", result)
+except CustomException as e:
+    print("Ошибка:", e.message)
 ```
 ### Результат
 
-![image](https://github.com/llubyanskikh/Software_engineering0/assets/147454826/646efa91-c575-471c-9af7-b2e5380ecc93)
-
+![image](https://github.com/llubyanskikh/Software_engineering0/assets/147454826/42a77012-22ea-4613-889d-ad52b8c050d2)
 
 ## Выводы. 
-### На примере этой прогрраммы можно рассмотреть полиморфизм. Создаётся класс MusicalInstrument, в котором содержится метод cost. Через него будут подсчитываться общие расходы. Далее мы создаём ещё два класса: скрипка(здесь указываем ссылку на текущий экземпляр и аргументы количества и стоимости) и фортепиано(то же самое + доставка). Создаём массив, считаем и выводим на экран.
-### Итак, полиморфизм позво
+### В данном примере определен класс CustomException, который является наследником класса Exception. В конструкторе класса CustomException определена инициализация сообщения об ошибке. 
+
+Затем определена функция example_function, которая получает на вход число и проверяет его значение. Если значение меньше нуля, то вызывается исключение CustomException с сообщением "Ошибка: Неверный ввод. Число должно быть положительным.". Иначе, функция возвращает квадрат введенного числа.
+
+В основной части кода происходит запрос на ввод положительного числа пользователем. Затем вызывается функция example_function с введенным числом и результат выводится на экран. 
