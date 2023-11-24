@@ -3,14 +3,14 @@ def read_file(sm2):
         with open(sm2, 'r') as file:
             read_file = file.read()
             if not read_file:
-                raise Exception("Ôàéë ïóñòîé")
+                raise Exception("Файл пустой")
             else:
-                print("Ñîäåðæèìîå ôàéëà:")
+                print("Содержимое файла:")
                 print(read_file)
     except FileNotFoundError:
-        print(f"Ôàéë {sm2} íå íàéäåí")
+        print(f"Файл {sm2} не найден")
     except Exception as e:
-        print(f"Îøèáêà: {e}")
+        print(f"Ошибка: {e}")
 
 read_file('sm2.txt')
 
