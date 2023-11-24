@@ -1,17 +1,14 @@
 def add_two_numbers():
     try:
-        user_input = input("Ââåäèòå ÷èñëî: ")
+        user_input = input("Введите число: ")
         number = float(user_input)
         result = 2 + number
-        print(f"Ðåçóëüòàò ñëîæåíèÿ 2 è {number}: {result}")
+        print(f"Результат сложения 2 и {number}: {result}")
     except ValueError:
-        print("Îøèáêà: Íåïîäõîäÿùèé òèï äàííûõ. Îæèäàëîñü ÷èñëî.")
-
-# Òåñò 1: ââîä êîððåêòíîãî ÷èñëà
+        print("Ошибка: Неподходящий тип данных. Ожидалось число.")
+# Тест 1: ввод корректного числа
 add_two_numbers()
-
-# Òåñò 2: ââîä ñòðîêè
+# Тест 2: ввод строки
 add_two_numbers()
-
-# Òåñò 3: ââîä äðóãîãî íåïîäõîäÿùåãî òèïà äàííûõ
+# Тест 3: ввод другого неподходящего типа данных
 add_two_numbers()
